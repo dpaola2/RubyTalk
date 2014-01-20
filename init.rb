@@ -3,12 +3,18 @@ require 'json'
 # See test.rb for usage details
 # TODO: record class creation
 
+def create_class(name)
+  Object.const_set(name, Class.new)
+  record_class_change(name)
+  return Kernel.const_get(name)
+end
+
 Class.class_eval do
   define_method :define_instance_method_from_string do |name, proc_string|
     block = eval("lambda {#{ proc_string }}")
     define_method name.to_sym, block
     instance_method_list[name.to_sym] = proc_string
-    record_change(self.name, name, proc_string)
+    record_method_change(self.name, name, proc_string)
     block
   end
 
@@ -56,8 +62,21 @@ def find_my_objects
   results
 end
 
-def record_change(class_name, method_name, proc_string)
-  filepath = "changes.json"
+def record_class_change(class_name)
+  filepath = "classes.json"
+  classes = []
+  if File.exists? filepath
+    classes = JSON.parse(File.open(filepath, "r").read())['classes']
+  end
+  classes << class_name
+  classes.uniq!
+  File.open(filepath, "w") do |f|
+    f.write(JSON.pretty_generate({'classes'=> classes}))
+  end
+end
+
+def record_method_change(class_name, method_name, proc_string)
+  filepath = "methods.json"
   changes = {}
   if File.exists? filepath
     # read file, decode into hash
@@ -78,9 +97,19 @@ def record_change(class_name, method_name, proc_string)
 end
 
 def load_changes
-  filepath = "changes.json"
+  filepath = "classes.json"
   if File.exists? filepath
-    changes = JSON.parse(File.open("changes.json", "r").read())
+    classes = JSON.parse(File.open(filepath, "r").read())['classes']
+    classes.each do |name|
+      create_class(name)
+    end
+  else
+    puts "No classes.json found"
+  end
+
+  filepath = "methods.json"
+  if File.exists? filepath
+    changes = JSON.parse(File.open("methods.json", "r").read())
     classes = changes.keys
     classes.each do |class_name|
       methods = changes[class_name].keys
@@ -90,7 +119,7 @@ def load_changes
       end
     end
   else
-    puts "No changes.json found"
+    puts "No methods.json found"
   end
 end
 
