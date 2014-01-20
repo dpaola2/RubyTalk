@@ -1,6 +1,7 @@
 require 'json'
 
 # See test.rb for usage details
+# TODO: record class creation
 
 Class.class_eval do
   define_method :define_instance_method_from_string do |name, proc_string|
@@ -65,13 +66,37 @@ def record_change(class_name, method_name, proc_string)
   end
   
   # write new values to the hash
-  if changes[class_name].nil?
-    changes[class_name] = {}
+  if changes[class_name.to_s].nil?
+    changes[class_name.to_s] = {}
   end
-  changes[class_name][method_name] = proc_string
+  changes[class_name.to_s][method_name] = proc_string
   
   # write the file
   File.open(filepath, "w") do |f|
     f.write(JSON.pretty_generate(changes))
   end
+end
+
+def load_changes
+  filepath = "changes.json"
+  if File.exists? filepath
+    changes = JSON.parse(File.open("changes.json", "r").read())
+    classes = changes.keys
+    classes.each do |class_name|
+      methods = changes[class_name].keys
+      methods.each do |method_name|
+        klass = Kernel.const_get(class_name.to_sym)
+        klass.define_instance_method_from_string(method_name.to_s, changes[class_name][method_name])
+      end
+    end
+  else
+    puts "No changes.json found"
+  end
+end
+
+def class_exists?(class_name)
+  klass = Module.const_get(class_name)
+  return klass.is_a?(Class)
+rescue NameError
+  return false
 end
