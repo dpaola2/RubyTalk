@@ -101,6 +101,7 @@ def load_changes
   if File.exists? filepath
     classes = JSON.parse(File.open(filepath, "r").read())['classes']
     classes.each do |name|
+      puts "Creating class: #{name}"
       create_class(name)
     end
   else
@@ -115,6 +116,7 @@ def load_changes
       methods = changes[class_name].keys
       methods.each do |method_name|
         klass = Kernel.const_get(class_name.to_sym)
+        puts "Defining #{method_name} on class: #{class_name}..."
         klass.define_instance_method_from_string(method_name.to_s, changes[class_name][method_name])
       end
     end
@@ -129,3 +131,7 @@ def class_exists?(class_name)
 rescue NameError
   return false
 end
+
+puts "Loading changes from classes.json and methods.json..."
+load_changes
+puts "Done."
