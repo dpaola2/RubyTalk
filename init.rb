@@ -33,7 +33,7 @@ def all_classes
   ObjectSpace.each_object(Class) do |obj|
     result << obj
   end
-  result.sort {|x, y| x.name <=> y.name }
+  result
 end
 
 def all_modules
@@ -41,5 +41,5 @@ def all_modules
   ObjectSpace.each_object(Module) do |obj|
     result << obj
   end
-  result.sort {|x, y| x.name <=> y.name }
+  result
 end
