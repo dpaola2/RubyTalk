@@ -22,4 +22,24 @@ Object.class_eval do
   define_method :method_list do
     self.class.instance_method_list
   end
+
+  define_method :descendants do
+    ObjectSpace.each_object(Class).select { |klass| klass < self }
+  end
+end
+
+def all_classes
+  result = []
+  ObjectSpace.each_object(Class) do |obj|
+    result << obj
+  end
+  result.sort {|x, y| x.name <=> y.name }
+end
+
+def all_modules
+  result = []
+  ObjectSpace.each_object(Module) do |obj|
+    result << obj
+  end
+  result.sort {|x, y| x.name <=> y.name }
 end
