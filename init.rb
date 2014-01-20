@@ -1,10 +1,5 @@
 
-
-# Usage:
-# Object.define_method_from_string(:foobar, "|name| @name = 'Dave'")
-# o = Object.new
-# o.method_list
-# Object.instance_method_list
+# See test.rb for usage details
 
 Class.class_eval do
   define_method :define_instance_method_from_string do |name, proc_string|
