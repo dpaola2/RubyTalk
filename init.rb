@@ -1,5 +1,6 @@
 require 'bundler/cli'
 require 'json'
+require 'debugger'
 
 # See test.rb for usage details
 
@@ -29,6 +30,23 @@ Class.class_eval do
       @instance_method_list = {}
     end
     @instance_method_list
+  end
+
+  define_method :define_class_method_from_string do |name, proc_string|
+    block = eval("lambda {#{ proc_string }}")
+    self.class.instance_eval do
+      define_method name.to_sym, block
+    end
+    class_method_list[name.to_sym] = proc_string
+    record_class_method_change(self.name, name, proc_string)
+    block
+  end
+
+  define_method :class_method_list do
+    if @class_method_list.nil?
+      @class_method_list = {}
+    end
+    @class_method_list
   end
 end
 
@@ -93,6 +111,10 @@ def record_class_change(class_name, superclass_name)
   File.open(filepath, "w") do |f|
     f.write(JSON.pretty_generate({'classes'=> classes}))
   end
+end
+
+def record_class_method_change(class_name, method_name, proc_string)
+  # XXX TODO
 end
 
 def record_method_change(class_name, method_name, proc_string)
