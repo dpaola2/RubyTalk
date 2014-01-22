@@ -114,7 +114,20 @@ def record_class_change(class_name, superclass_name)
 end
 
 def record_class_method_change(class_name, method_name, proc_string)
-  # XXX TODO
+  filepath = "class_methods.json"
+  changes = {}
+  if File.exists? filepath
+    changes = JSON.parse(File.open(filepath, "r").read())
+  end
+
+  if changes[class_name.to_s].nil?
+    changes[class_name.to_s] = {}
+  end
+  changes[class_name.to_s][method_name] = proc_string
+
+  File.open(filepath, "w") do |f|
+    f.write(JSON.pretty_generate(changes))
+  end
 end
 
 def record_method_change(class_name, method_name, proc_string)
@@ -165,6 +178,22 @@ def load_changes
     end
   else
     puts "No classes.json found"
+  end
+
+  filepath = "class_methods.json"
+  if File.exists? filepath
+    changes = JSON.parse(File.open(filepath, "r").read())
+    classes = changes.keys
+    classes.each do |class_name|
+      methods = changes[class_name].keys
+      methods.each do |method_name|
+        klass = Kernel.const_get(class_name.to_sym)
+        puts "Defining #{method_name} CLASS method on class: #{class_name}"
+        klass.define_class_method_from_string(method_name.to_s, changes[class_name][method_name])
+      end
+    end
+  else
+    puts "No class_methods.json found"
   end
 
   filepath = "methods.json"
