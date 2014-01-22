@@ -1,0 +1,5 @@
+{
+  "MyWebApp": {
+    "go": "Thread.new { self.run!(:server => 'thin') }"
+  }
+}

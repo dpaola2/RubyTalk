@@ -4,5 +4,13 @@
     "name=": "|name| @name = name",
     "yell": "'HELLO THERE'",
     "yolo": "'YOLO!'"
+  },
+  "MyWebApp": {
+    "go": "@thr = Thread.new { self.run!(:server => 'thin') }",
+    "thr": "@thr",
+    "set_routes": "self.get('/') { 'hello, world!' }",
+    "say_hello": "'hello, world (again)!'",
+    "print_all_classes": "all_classes.sort{|x, y| x.name <=> y.name}.join('<br>')",
+    "print_all_classes": "all_classes.sort{|x, y| x.to_s <=> y.to_s}.join('<br>')"
   }
 }

@@ -1,5 +1,7 @@
 {
   "requires": [
-    "sinatra/base"
+    "sinatra/base",
+    "pp",
+    "json"
   ]
 }

@@ -28,6 +28,10 @@
     [
       "MyWebApp",
       "Sinatra::Base"
+    ],
+    [
+      "ObjectPrinter",
+      "Object"
     ]
   ]
 }
