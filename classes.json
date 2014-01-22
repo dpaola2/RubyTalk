@@ -1,0 +1,33 @@
+{
+  "classes": [
+    "Foo",
+    "Bar",
+    "RailsApp",
+    "RubyTalkServer",
+    "WebApp",
+    [
+      "Foo",
+      "Object"
+    ],
+    [
+      "Bar",
+      "Object"
+    ],
+    [
+      "RailsApp",
+      "Object"
+    ],
+    [
+      "RubyTalkServer",
+      "Object"
+    ],
+    [
+      "WebApp",
+      "Object"
+    ],
+    [
+      "MyWebApp",
+      "Sinatra::Base"
+    ]
+  ]
+}

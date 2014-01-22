@@ -1,0 +1,8 @@
+{
+  "Foo": {
+    "name": "@name",
+    "name=": "|name| @name = name",
+    "yell": "'HELLO THERE'",
+    "yolo": "'YOLO!'"
+  }
+}

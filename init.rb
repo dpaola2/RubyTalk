@@ -1,11 +1,17 @@
+require 'bundler/cli'
 require 'json'
 
 # See test.rb for usage details
-# TODO: record class creation
 
-def create_class(name)
-  Object.const_set(name, Class.new)
-  record_class_change(name)
+def my_require(name)
+  record_require(name)
+  require name
+end
+
+
+def create_class(name, superclass=Object)
+  Object.const_set(name, Class.new(superclass))
+  record_class_change(name, superclass.to_s)
   return Kernel.const_get(name)
 end
 
@@ -62,13 +68,27 @@ def find_my_objects
   results
 end
 
-def record_class_change(class_name)
+def record_require(name)
+  filepath = "requires.json"
+  requires = []
+  if File.exists? filepath
+    requires = JSON.parse(File.open(filepath, "r").read())['requires']
+  end
+
+  requires << name
+  requires.uniq!
+  File.open(filepath, "w") do |f|
+    f.write(JSON.pretty_generate({'requires' => requires}))
+  end
+end
+
+def record_class_change(class_name, superclass_name)
   filepath = "classes.json"
   classes = []
   if File.exists? filepath
     classes = JSON.parse(File.open(filepath, "r").read())['classes']
   end
-  classes << class_name
+  classes << [class_name, superclass_name]
   classes.uniq!
   File.open(filepath, "w") do |f|
     f.write(JSON.pretty_generate({'classes'=> classes}))
@@ -97,12 +117,29 @@ def record_method_change(class_name, method_name, proc_string)
 end
 
 def load_changes
+  filepath = 'requires.json'
+  if File.exists? filepath
+    requires = JSON.parse(File.open(filepath, "r").read())['requires']
+    requires.each do |name|
+      puts "require '#{name}'"
+      require name
+    end
+  else
+    puts "No requires.json found"
+  end
+  
   filepath = "classes.json"
   if File.exists? filepath
     classes = JSON.parse(File.open(filepath, "r").read())['classes']
-    classes.each do |name|
-      puts "Creating class: #{name}"
-      create_class(name)
+    classes.each do |name, superclass|
+      if superclass.nil?
+        superclass = Object
+      else
+        superclass = Kernel.const_get(superclass)
+      end
+      
+      puts "Creating class: #{name} with superclass #{superclass}"
+      create_class(name, superclass)
     end
   else
     puts "No classes.json found"
@@ -132,6 +169,17 @@ rescue NameError
   return false
 end
 
-puts "Loading changes from classes.json and methods.json..."
-load_changes
-puts "Done."
+def bundle_install
+  Bundler::CLI.new.install
+end
+
+def main
+  puts "Installing dependencies..."
+  bundle_install
+
+  puts "Loading changes from classes.json and methods.json..."
+  load_changes
+  puts "Done."
+end
+
+main()
