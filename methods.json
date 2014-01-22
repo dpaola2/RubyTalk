@@ -17,7 +17,6 @@
   "String": {
     "as_list_item": "\"<li>#{self.as_class_link}</li>\"",
     "as_class": "begin; return Kernel.const_get(self); rescue; nil; end; ",
-    "as_class_link": "\"<a href=\\\"/classes/#{self}\\\">#{self}</a>\"",
     "as_class_link": "\"<a href=\\\"/class/#{self}\\\">#{self}</a>\""
   },
   "ModuleList": {

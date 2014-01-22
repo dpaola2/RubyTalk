@@ -2,6 +2,7 @@
   "requires": [
     "sinatra/base",
     "pp",
-    "json"
+    "json",
+    "hipchat"
   ]
 }
