@@ -1,5 +1,8 @@
 {
   "MyWebApp": {
     "go": "Thread.new { self.run!(:server => 'thin') }"
+  },
+  "ModuleList": {
+    "render": "all_modules.join('<br>')"
   }
 }

@@ -32,6 +32,14 @@
     [
       "ObjectPrinter",
       "Object"
+    ],
+    [
+      "ModuleList",
+      "Object"
+    ],
+    [
+      "HTML",
+      "Object"
     ]
   ]
 }

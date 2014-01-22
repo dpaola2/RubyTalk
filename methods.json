@@ -1,7 +1,7 @@
 {
   "Foo": {
     "name": "@name",
-    "name=": "|name| @name = name",
+    "name=": "|name|\n\t@name=name",
     "yell": "'HELLO THERE'",
     "yolo": "'YOLO!'"
   },
@@ -10,7 +10,21 @@
     "thr": "@thr",
     "set_routes": "self.get('/') { 'hello, world!' }",
     "say_hello": "'hello, world (again)!'",
-    "print_all_classes": "all_classes.sort{|x, y| x.name <=> y.name}.join('<br>')",
-    "print_all_classes": "all_classes.sort{|x, y| x.to_s <=> y.to_s}.join('<br>')"
+    "print_all_classes": "all_modules.sort{|x, y| x.to_s <=> y.to_s}.join('<br>')",
+    "main_page": "ModuleList.new.render",
+    "class_lookup": "klass = params[:name].as_class; if klass.nil?; 'no such class'; else; klass.render; end;"
+  },
+  "String": {
+    "as_list_item": "\"<li>#{self.as_class_link}</li>\"",
+    "as_class": "begin; return Kernel.const_get(self); rescue; nil; end; ",
+    "as_class_link": "\"<a href=\\\"/classes/#{self}\\\">#{self}</a>\"",
+    "as_class_link": "\"<a href=\\\"/class/#{self}\\\">#{self}</a>\""
+  },
+  "ModuleList": {
+    "render": "modules = all_modules.collect {|mod| mod.to_s.as_list_item}.join; \"<h1>Modules</h1><ul>#{modules}</ul>\""
+  },
+  "Class": {
+    "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
+    "render_methods": "instance_method_list.collect {|k,m| \"<h2>#{k}</h2><pre>#{m}</pre>\" }.join"
   }
 }
