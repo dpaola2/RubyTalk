@@ -44,6 +44,18 @@
     [
       "MyHipchat",
       "Object"
+    ],
+    [
+      "View",
+      "Object"
+    ],
+    [
+      "TableView",
+      "View"
+    ],
+    [
+      "TableRow",
+      "View"
     ]
   ]
 }

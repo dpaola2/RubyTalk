@@ -29,5 +29,14 @@
   "MyHipchat": {
     "initialize": "@token = '7810024d94df2eb7bbf653e97d6afe'; @client = HipChat::Client.new(@token); ",
     "notify_room": "|msg| @client['BlocHQ'].send('RubyTalk', msg, :color => 'green'); "
+  },
+  "TableView": {
+    "initialize": "|data| @data = data",
+    "data": "@data",
+    "render": "\"<table>#{@data.collect {|d| TableRow.new(d).render }.join}</table>\""
+  },
+  "TableRow": {
+    "initialize": "|data| @data = data",
+    "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
   }
 }
