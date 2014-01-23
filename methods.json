@@ -25,5 +25,9 @@
   "Class": {
     "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
     "render_methods": "instance_method_list.collect {|k,m| \"<h2>#{k}</h2><pre>#{m}</pre>\" }.join"
+  },
+  "MyHipchat": {
+    "initialize": "@token = '7810024d94df2eb7bbf653e97d6afe'; @client = HipChat::Client.new(@token); ",
+    "notify_room": "|msg| @client['BlocHQ'].send('RubyTalk', msg, :color => 'green'); "
   }
 }

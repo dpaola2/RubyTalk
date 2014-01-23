@@ -40,6 +40,10 @@
     [
       "HTML",
       "Object"
+    ],
+    [
+      "MyHipchat",
+      "Object"
     ]
   ]
 }
