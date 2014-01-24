@@ -12,17 +12,18 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 
 # TODO
 
-- support for classes
-- support for methods
-- support for all objects, not just classes and their methods
-- delete objects
+- ~~support for classes~~
+- ~~support for methods~~
+- support for modules
+- support for instances
+- delete objects & instances
 - GUI (shoes? morphic? X11? qt? Gtk+? web app?)
 - better format for serialization
 - serialize on world open/close, rather than object changes (hooks?)
 - Rails-like web framework
 - multi-user? How would that work?
 - welcome message
-
+- organize the init.rb code into something sensible (like RubyTalk module)
 
 How To Install
 =============
