@@ -3,6 +3,7 @@
     "sinatra/base",
     "pp",
     "json",
-    "hipchat"
+    "hipchat",
+    "audite"
   ]
 }

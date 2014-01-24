@@ -21,3 +21,19 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - serialize on world open/close, rather than object changes (hooks?)
 - Rails-like web framework
 - multi-user? How would that work?
+- welcome message
+
+
+How To Install
+=============
+
+`
+$ rvm install 2.1.0
+$ gem install bundler
+$ brew install portaudio
+$ brew install mpg123
+$ bundle install
+$ ./world.rb
+`
+
+`exit` will quit RubyTalk.

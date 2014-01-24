@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    audite (0.3.0)
     columnize (0.3.6)
     daemons (1.1.9)
     debugger (1.6.5)
@@ -35,6 +36,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  audite
   debugger
   hipchat
   pg
