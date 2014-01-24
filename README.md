@@ -24,6 +24,15 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - multi-user? How would that work?
 - welcome message
 - organize the init.rb code into something sensible (like RubyTalk module)
+- how to serialize open files and network connections
+
+# Ideas for applications / objects
+
+- jarvis
+- hipchat
+- os x menubar applet (workspaces in smalltalk)
+- hubot
+- 
 
 How To Install
 =============
