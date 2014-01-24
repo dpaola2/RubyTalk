@@ -25,6 +25,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - welcome message
 - organize the init.rb code into something sensible (like RubyTalk module)
 - how to serialize open files and network connections
+- resolve class superclasses upon definition (if we try to define a class with a nonexistant superclass, what happens?)
 
 # Ideas for applications / objects
 
@@ -39,11 +40,17 @@ How To Install
 
 `
 $ rvm install 2.1.0
+
 $ gem install bundler
+
 $ brew install portaudio
+
 $ brew install mpg123
+
 $ bundle install
+
 $ ./world.rb
+
 `
 
 `exit` will quit RubyTalk.
