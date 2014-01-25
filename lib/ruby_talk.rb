@@ -1,4 +1,3 @@
-
 module RubyTalk
   def self.bootstrap
     Class.class_eval do
