@@ -28,6 +28,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - resolve class superclasses upon definition (if we try to define a class with a nonexistant superclass, what happens?)
 - how to handle cascading?
 - make `Object` class receive the message `subclass` instead of using `create_class`
+- resumable exceptions?
 
 # Ideas for applications / objects
 
