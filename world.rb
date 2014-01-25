@@ -2,12 +2,7 @@
 
 require 'debugger'
 
-begin
-  require './init.rb'
-rescue Exception => e
-  puts e.backtrace
-  debugger
-end
+require './init.rb'
 require 'irb'
 IRB.setup nil
 IRB.conf[:MAIN_CONTEXT] = IRB::Irb.new.context
