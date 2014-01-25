@@ -11,6 +11,16 @@ class RubyTalkGUI
     @new_workspace_btn.command do
       new_workspace
     end
+
+    @new_system_browser_btn = TkButton.new(@root) do
+      borderwidth 1
+      state "normal"
+      text "System Browser"
+      pack
+    end
+    @new_system_browser_btn.command do
+      new_system_browser
+    end
   end
 
   def new_workspace

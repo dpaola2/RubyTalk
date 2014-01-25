@@ -23,7 +23,8 @@
     "render": "modules = all_modules.collect {|mod| mod.to_s.as_list_item}.join; \"<h1>Modules</h1><ul>#{modules}</ul>\"",
     "initialize": "|root| @listbox = TkListbox.new(root) do; listvariable TkVariable.new(all_modules.collect{|m| m.to_s });  pack; end;",
     "listbox": "@listbox",
-    "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)"
+    "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
+    "selected_module": "@selected_module = Module.const_get(@listbox.get(@listbox.curselection))"
   },
   "Class": {
     "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
@@ -43,10 +44,15 @@
     "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
   },
   "SystemBrowser": {
-    "initialize": "|root| @window = TkToplevel.new(root) do; title 'System Browser'; end; @module_list = RubyTalkGUI::ModuleList.new(@window); @module_list.onselect(lambda {puts 'selected'});",
-    "initialize": "|root| @window = TkToplevel.new(root) do; title 'System Browser'; end; @module_list = RubyTalkGUI::ModuleList.new(@window); @module_list.onselect(lambda {puts 'selected'});"
+    "initialize": "|root| \n\n@window = TkToplevel.new(root) do; title 'System Browser'; end; \n\n@module_list = RubyTalkGUI::ModuleList.new(@window); \n\n@module_list.onselect(\n  lambda {\n    @editor.delete('1.0', 'end'); \n    methods = @module_list.selected_module.instance_method_list.keys; \n    @instance_method_list.set_methods(methods); \n    puts methods.inspect;\n    @selected_module = @module_list.selected_module;\n  }\n); \n\n@instance_method_list = InstanceMethodList.new(@window); \n\n@instance_method_list.onselect(\n  lambda {\n    method_name = @instance_method_list.listbox.get(@instance_method_list.listbox.curselection); \n    method = @selected_module.instance_method_list[method_name.to_sym];\n    puts method\n    @editor.delete('1.0', 'end'); \n    @editor.insert('1.0', method); \n  }\n); \n\n@editor = TkText.new(@window) do; width 30; height 20; borderwidth 1; pack; end;"
   },
-  "Justin": {
-    "initialize": "|root| @window = TkToplevel.new(root) do; title 'Justin sucks'; end;"
+  "RubyTalkGUI": {
+    "new_system_browser": "SystemBrowser.new(@root);"
+  },
+  "InstanceMethodList": {
+    "initialize": "|root| @listbox = TkListbox.new(root) do; pack; end;",
+    "set_methods": "|list| @listbox.listvariable TkVariable.new(list);",
+    "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
+    "listbox": "@listbox"
   }
 }

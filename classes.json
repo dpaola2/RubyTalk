@@ -64,6 +64,10 @@
     [
       "SystemBrowser",
       "Object"
+    ],
+    [
+      "InstanceMethodList",
+      "Object"
     ]
   ]
 }
