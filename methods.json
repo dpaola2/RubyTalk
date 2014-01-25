@@ -20,7 +20,10 @@
     "as_class_link": "\"<a href=\\\"/class/#{self}\\\">#{self}</a>\""
   },
   "ModuleList": {
-    "render": "modules = all_modules.collect {|mod| mod.to_s.as_list_item}.join; \"<h1>Modules</h1><ul>#{modules}</ul>\""
+    "render": "modules = all_modules.collect {|mod| mod.to_s.as_list_item}.join; \"<h1>Modules</h1><ul>#{modules}</ul>\"",
+    "initialize": "|root| @listbox = TkListbox.new(root) do; listvariable TkVariable.new(all_modules.collect{|m| m.to_s });  pack; end;",
+    "listbox": "@listbox",
+    "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)"
   },
   "Class": {
     "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
@@ -38,5 +41,12 @@
   "TableRow": {
     "initialize": "|data| @data = data",
     "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
+  },
+  "SystemBrowser": {
+    "initialize": "|root| @window = TkToplevel.new(root) do; title 'System Browser'; end; @module_list = RubyTalkGUI::ModuleList.new(@window); @module_list.onselect(lambda {puts 'selected'});",
+    "initialize": "|root| @window = TkToplevel.new(root) do; title 'System Browser'; end; @module_list = RubyTalkGUI::ModuleList.new(@window); @module_list.onselect(lambda {puts 'selected'});"
+  },
+  "Justin": {
+    "initialize": "|root| @window = TkToplevel.new(root) do; title 'Justin sucks'; end;"
   }
 }

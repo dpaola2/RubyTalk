@@ -3,6 +3,7 @@ require 'json'
 require 'debugger'
 require './lib/functions.rb'
 require './lib/ruby_talk.rb'
+require './lib/gui.rb'
 
 
 def welcome
@@ -14,6 +15,8 @@ def welcome
   puts ""
   puts "### WELCOME TO RUBYTALK ###"
   puts ""
+  @@gui = RubyTalkGUI.new
+  Tk.mainloop
 end
 
 welcome()

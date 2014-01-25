@@ -56,6 +56,14 @@
     [
       "TableRow",
       "View"
+    ],
+    [
+      "Foobar2",
+      "Object"
+    ],
+    [
+      "SystemBrowser",
+      "Object"
     ]
   ]
 }

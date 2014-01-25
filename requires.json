@@ -4,6 +4,7 @@
     "pp",
     "json",
     "hipchat",
-    "audite"
+    "audite",
+    "tk"
   ]
 }
