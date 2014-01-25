@@ -30,6 +30,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - make `Object` class receive the message `subclass` instead of using `create_class`
 - resumable exceptions?
 - Ruby threads === Smalltalk processes? (not yet)
+- handle dependencies from within RubyTalk (rather than needing to edit the Gemfile and run bundle install)
 
 # Ideas for applications / objects
 
