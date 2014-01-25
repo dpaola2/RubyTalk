@@ -29,6 +29,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - how to handle cascading?
 - make `Object` class receive the message `subclass` instead of using `create_class`
 - resumable exceptions?
+- Ruby threads === Smalltalk processes? (not yet)
 
 # Ideas for applications / objects
 
