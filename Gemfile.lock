@@ -19,7 +19,6 @@ GEM
     json (1.8.1)
     multi_xml (0.5.5)
     pg (0.17.1)
-    qtbindings (4.8.5.2)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -41,6 +40,5 @@ DEPENDENCIES
   debugger
   hipchat
   pg
-  qtbindings (~> 4.8.5.2)
   sinatra
   thin
