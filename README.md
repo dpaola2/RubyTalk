@@ -38,7 +38,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - hipchat
 - os x menubar applet (workspaces in smalltalk)
 - hubot
-- 
+
 
 How To Install
 =============
@@ -47,7 +47,7 @@ How To Install
 
 [Download the community edition of ActiveTcl](http://www.activestate.com/activetcl)
 
-`
+```
 $ rvm install 2.1.0 --with-pthread --with-tcl --with-tk
 
 $ gem install bundler
@@ -60,6 +60,6 @@ $ bundle install
 
 $ ./world.rb
 
-`
+```
 
 `exit` will quit RubyTalk.
