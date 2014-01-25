@@ -26,6 +26,8 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - organize the init.rb code into something sensible (like RubyTalk module)
 - how to serialize open files and network connections
 - resolve class superclasses upon definition (if we try to define a class with a nonexistant superclass, what happens?)
+- how to handle cascading?
+- make `Object` class receive the message `subclass` instead of using `create_class`
 
 # Ideas for applications / objects
 
