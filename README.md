@@ -43,8 +43,12 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 How To Install
 =============
 
+(only tested on OS X 10.9.1)
+
+[Download the community edition of ActiveTcl](http://www.activestate.com/activetcl)
+
 `
-$ rvm install 2.1.0
+$ rvm install 2.1.0 --with-pthread --with-tcl --with-tk
 
 $ gem install bundler
 
