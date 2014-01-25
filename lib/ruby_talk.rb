@@ -32,6 +32,11 @@ module RubyTalk
         end
         @class_method_list
       end
+
+      define_method :delete do
+        record_class_delete(self)
+        Object.send(:remove_const, self.name.to_sym)
+      end
     end
 
     Object.class_eval do

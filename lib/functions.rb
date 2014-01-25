@@ -53,16 +53,33 @@ def record_require(name)
 end
 
 def record_class_change(class_name, superclass_name)
+  classes = classes_from_disk
+  classes << [class_name, superclass_name]
+  classes.uniq!
+  classes_to_disk(classes)
+end
+
+def classes_from_disk
   filepath = "classes.json"
   classes = []
   if File.exists? filepath
     classes = JSON.parse(File.open(filepath, "r").read())['classes']
   end
-  classes << [class_name, superclass_name]
-  classes.uniq!
+  classes
+end
+
+def classes_to_disk(classes)
+  filepath = "classes.json"
   File.open(filepath, "w") do |f|
     f.write(JSON.pretty_generate({'classes'=> classes}))
   end
+end
+
+def record_class_delete(klass)
+  classes = classes_from_disk
+  classes.delete([klass.name, klass.superclass.name])
+  classes.uniq!
+  classes_to_disk(classes)
 end
 
 def record_class_method_change(class_name, method_name, proc_string)
