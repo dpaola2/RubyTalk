@@ -10,10 +10,13 @@ def my_require(name)
 end
 
 
-def create_class(name, superclass=Object)
+def create_class(name, superclass)
+  if superclass.nil?
+    superclass = Object
+  end
   Object.const_set(name, Class.new(superclass))
   record_class_change(name, superclass.to_s)
-  return Kernel.const_get(name)
+  return eval(name)
 end
 
 Class.class_eval do
@@ -167,13 +170,13 @@ def load_changes
   if File.exists? filepath
     classes = JSON.parse(File.open(filepath, "r").read())['classes']
     classes.each do |name, superclass|
+      puts "Creating class: #{name} with superclass #{superclass}"
       if superclass.nil?
         superclass = Object
       else
-        superclass = Kernel.const_get(superclass)
+        superclass = eval(superclass)
       end
       
-      puts "Creating class: #{name} with superclass #{superclass}"
       create_class(name, superclass)
     end
   else
@@ -187,7 +190,7 @@ def load_changes
     classes.each do |class_name|
       methods = changes[class_name].keys
       methods.each do |method_name|
-        klass = Kernel.const_get(class_name.to_sym)
+        klass = eval(class_name)
         puts "Defining #{method_name} CLASS method on class: #{class_name}"
         klass.define_class_method_from_string(method_name.to_s, changes[class_name][method_name])
       end
@@ -203,7 +206,7 @@ def load_changes
     classes.each do |class_name|
       methods = changes[class_name].keys
       methods.each do |method_name|
-        klass = Kernel.const_get(class_name.to_sym)
+        klass = eval(class_name)
         puts "Defining #{method_name} on class: #{class_name}..."
         klass.define_instance_method_from_string(method_name.to_s, changes[class_name][method_name])
       end
@@ -220,17 +223,11 @@ rescue NameError
   return false
 end
 
-def bundle_install
-  Bundler::CLI.new.install
-end
-
 def main
-  puts "Installing dependencies..."
-  bundle_install
-
   puts "Loading changes from classes.json and methods.json..."
   load_changes
   puts "Done."
 end
 
 main()
+  
