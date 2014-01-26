@@ -56,8 +56,8 @@
     "listbox": "@listbox"
   },
   "Workspace": {
-    "initialize": "|root|\n\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'right', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'left')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n",
-    "initialize": "|root|\n\n@window = TkToplevel.new(root) { title 'workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'right', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'left')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n"
+    "initialize": "|root|\n\n@window = TkToplevel.new(root) { title 'workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'right', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'left')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n",
+    "initialize": "|root|\n\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'right', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'left')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n"
   },
   "Editor": {
     "initialize": "|root|\n\n@editor = TkText.new(root) do\n  width 50\n  height 20\n  pack\nend",
