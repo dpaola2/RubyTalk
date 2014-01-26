@@ -21,7 +21,7 @@
   },
   "ModuleList": {
     "render": "modules = all_modules.collect {|mod| mod.to_s.as_list_item}.join; \"<h1>Modules</h1><ul>#{modules}</ul>\"",
-    "initialize": "|root| @listbox = TkListbox.new(root) do; listvariable TkVariable.new(all_modules.collect{|m| m.to_s });  pack; end;",
+    "initialize": "|root| @listbox = TkListbox.new(root) do; listvariable TkVariable.new(all_modules.collect{|m| m.to_s }.sort{|x, y| x.to_s <=> y.to_s}); width 50; height 35; pack; end;",
     "listbox": "@listbox",
     "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
     "selected_module": "@selected_module = Module.const_get(@listbox.get(@listbox.curselection))"
@@ -44,7 +44,7 @@
     "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
   },
   "SystemBrowser": {
-    "initialize": "|root| \n\n@window = TkToplevel.new(root) do; title 'System Browser'; end; \n\n@module_list = RubyTalkGUI::ModuleList.new(@window); \n\n@module_list.onselect(\n  lambda {\n    @editor.delete('1.0', 'end'); \n    methods = @module_list.selected_module.instance_method_list.keys; \n    @instance_method_list.set_methods(methods); \n    puts methods.inspect;\n    @selected_module = @module_list.selected_module;\n  }\n); \n\n@instance_method_list = InstanceMethodList.new(@window); \n\n@instance_method_list.onselect(\n  lambda {\n    method_name = @instance_method_list.listbox.get(@instance_method_list.listbox.curselection); \n    method = @selected_module.instance_method_list[method_name.to_sym];\n    puts method\n    @editor.delete('1.0', 'end'); \n    @editor.insert('1.0', method); \n  }\n); \n\n@editor = TkText.new(@window) do; width 30; height 20; borderwidth 1; pack; end;"
+    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    @editor.clear\n    methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(methods)\n    puts methods.inspect\n    @selected_module = @module_list.selected_module\n  }\n)\n\n@instance_method_list = InstanceMethodList.new(@window)\n\n@instance_method_list.onselect(\n  lambda {\n    method_name = @instance_method_list.listbox.get(@instance_method_list.listbox.curselection)\n    @selected_method_name = method_name\n    method = @selected_module.instance_method_list[method_name.to_sym]\n    puts method\n    @editor.set_text(method)\n  }\n)\n\n@editor = Editor.new(@window)\n\n@accept_button = TkButton.new(@window) do\n  text 'Accept'\n  state 'normal'\n  borderwidth 1\n  pack('side' => 'left')\nend\n\n@accept_button.command do\n  text = @editor.get_text\n  sel_module = @selected_module\n  method_name = @selected_method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, text)\nend\n"
   },
   "RubyTalkGUI": {
     "new_system_browser": "SystemBrowser.new(@root);"
@@ -54,5 +54,15 @@
     "set_methods": "|list| @listbox.listvariable TkVariable.new(list);",
     "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
     "listbox": "@listbox"
+  },
+  "Workspace": {
+    "initialize": "|root|\n\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'right', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'left')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n",
+    "initialize": "|root|\n\n@window = TkToplevel.new(root) { title 'workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'right', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'left')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n"
+  },
+  "Editor": {
+    "initialize": "|root|\n\n@editor = TkText.new(root) do\n  width 50\n  height 20\n  pack\nend",
+    "set_text": "\n|text|\n  @editor.delete('1.0', 'end')\n  @editor.insert('1.0', text)\n",
+    "get_text": "\n  @editor.get('1.0', 'end')\n\n",
+    "clear": "@editor.delete('1.0', 'end')"
   }
 }

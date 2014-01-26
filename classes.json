@@ -68,6 +68,14 @@
     [
       "InstanceMethodList",
       "Object"
+    ],
+    [
+      "Workspace",
+      "Object"
+    ],
+    [
+      "Editor",
+      "Object"
     ]
   ]
 }
