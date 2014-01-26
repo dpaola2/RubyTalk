@@ -32,6 +32,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - Ruby threads === Smalltalk processes? (not yet)
 - handle dependencies from within RubyTalk (rather than needing to edit the Gemfile and run bundle install)
 - ability to bookmark classes in the system browser
+- pull RubyTalkGUI code into RubyTalk (instead of in gui.rb)
 
 # Ideas for applications / objects
 
