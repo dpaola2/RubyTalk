@@ -57,16 +57,16 @@
     "new_system_browser": "SystemBrowser.new(@root);"
   },
   "InstanceMethodList": {
-    "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left') \n  end\n\n\n",
+    "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left', 'fill' => 'both') \n  end\n\n\n\n",
     "set_methods": "|list| @listbox.listvariable TkVariable.new(list);",
     "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
-    "listbox": "@listbox",
-    "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left', 'fill' => 'both') \n  end\n\n\n\n"
+    "listbox": "@listbox"
   },
   "Workspace": {
-    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 25\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n",
+    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) do\n  title 'Workspace'\n  width 50\n  height 10\nend\n\n@workspace = TkText.new(@window) do\n  borderwidth 1\n  pack('fill' => 'both', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n",
     "root": "@parent\n",
-    "parent": "@parent\n"
+    "parent": "@parent\n",
+    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 10\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5', 'fill' => 'both')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n"
   },
   "Editor": {
     "initialize": "\n|root|\n\n@editor = TkText.new(root) do\n  width 65\n  height 25\n  undo true\n  pack('fill' => 'both')\nend\n\n\n\n\n",
