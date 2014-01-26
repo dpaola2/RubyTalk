@@ -32,7 +32,8 @@
   },
   "Class": {
     "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
-    "render_methods": "instance_method_list.collect {|k,m| \"<h2>#{k}</h2><pre>#{m}</pre>\" }.join"
+    "render_methods": "instance_method_list.collect {|k,m| \"<h2>#{k}</h2><pre>#{m}</pre>\" }.join",
+    "undefine_instance_method": "|sym|\n\nputs \"going to delete method #{sym} on module #{self.to_s}\"\nremove_method(sym)\ninstance_method_list.delete(sym)\n\n\n"
   },
   "MyHipchat": {
     "initialize": "@token = '7810024d94df2eb7bbf653e97d6afe'; @client = HipChat::Client.new(@token); ",
@@ -48,7 +49,7 @@
     "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
   },
   "SystemBrowser": {
-    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    @editor.clear\n    methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(methods)\n    puts methods.inspect\n    @selected_module = @module_list.selected_module\n  }\n)\n\n@instance_method_list = InstanceMethodList.new(@window)\n\n@instance_method_list.onselect(\n  lambda {\n    method_name = @instance_method_list.listbox.get(@instance_method_list.listbox.curselection)\n    @selected_method_name = method_name\n    method = @selected_module.instance_method_list[method_name.to_sym]\n    puts method\n    @editor.set_text(method)\n  }\n)\n\n@new_method_name = TkEntry.new(@window) do\n  text '<method name>'\n  pack('side' => 'left')\nend\n\n@new_method_btn = TkButton.new(@window) do\n  text \"New Method\"\n  pack('side' => 'left')\nend\n\n@new_method_btn.command do\n  method_name = @new_method_name.get()\n  if method_name == \"\"\n    raise \"Blank Method Name\"\n  end\n  @new_method_name.delete('0', 'end')\n  puts method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, \"\")\nend\n\n\n@accept_button = TkButton.new(@window) do\n  text 'Accept'\n  state 'normal'\n  borderwidth 1\n  pack('side' => 'bottom')\nend\n\n@accept_button.command do\n  text = @editor.get_text\n  sel_module = @selected_module\n  method_name = @selected_method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, text)\nend\n\n@editor = Editor.new(@window)\n\n\n\n\n\n\n\n",
+    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    @editor.clear\n    methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(methods)\n    puts methods.inspect\n    @selected_module = @module_list.selected_module\n  }\n)\n\n@instance_method_list = InstanceMethodList.new(@window)\n\n@instance_method_list.onselect(\n  lambda {\n    method_name = @instance_method_list.selected_method    \n    @selected_method_name = method_name\n    method = @selected_module.instance_method_list[method_name.to_sym]\n    puts method\n    @editor.set_text(method)\n  }\n)\n\n@new_method_name = TkEntry.new(@window) do\n  text '<method name>'\n  pack('side' => 'left')\nend\n\n@new_method_btn = TkButton.new(@window) do\n  text \"New Method\"\n  pack('side' => 'left')\nend\n\n@new_method_btn.command do\n  method_name = @new_method_name.get()\n  if method_name == \"\"\n    raise \"Blank Method Name\"\n  end\n  @new_method_name.delete('0', 'end')\n  puts method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, \"\")\nend\n\n@delete_method_btn = TkButton.new(@window) do\n  text \"Delete Method\"\n  pack('side' => 'left')\nend\n\n@delete_method_btn.command do\n  method_name = @instance_method_list.selected_method\n  mod = @selected_module\n  mod.undefine_instance_method(method_name.to_sym)\nend\n\n\n@accept_button = TkButton.new(@window) do\n  text 'Accept'\n  state 'normal'\n  borderwidth 1\n  pack('side' => 'bottom')\nend\n\n@accept_button.command do\n  text = @editor.get_text\n  sel_module = @selected_module\n  method_name = @selected_method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, text)\nend\n\n@editor = Editor.new(@window)\n\n\n\n\n\n\n\n\n\n",
     "reselect_module": "\"deprecated\"\n",
     "test_method": "",
     "foobar": ""
@@ -60,13 +61,13 @@
     "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left', 'fill' => 'both') \n  end\n\n\n\n",
     "set_methods": "|list| @listbox.listvariable TkVariable.new(list);",
     "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
-    "listbox": "@listbox"
+    "listbox": "@listbox",
+    "selected_method": "@selected_method = @listbox.get(@listbox.curselection)\n"
   },
   "Workspace": {
-    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) do\n  title 'Workspace'\n  width 50\n  height 10\nend\n\n@workspace = TkText.new(@window) do\n  borderwidth 1\n  pack('fill' => 'both', 'padx' => '5', 'pady' => '5')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n",
+    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 10\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5', 'fill' => 'both')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n",
     "root": "@parent\n",
-    "parent": "@parent\n",
-    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 10\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5', 'fill' => 'both')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n"
+    "parent": "@parent\n"
   },
   "Editor": {
     "initialize": "\n|root|\n\n@editor = TkText.new(root) do\n  width 65\n  height 25\n  undo true\n  pack('fill' => 'both')\nend\n\n\n\n\n",
@@ -79,5 +80,18 @@
   },
   "Bar": {
     "test": "\"nothing here\"\n"
+  },
+  "TodoList": {
+    "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Todo List\" }\n  @TkText = TkText.new(@window) do\n    height 15\n    width 35\n    pack('fill' => 'both')\n  end\n"
+  },
+  "Data": {
+    "foobar": "",
+    "render": "\"foobaf\"\n"
+  },
+  "Module": {
+    "undefine_instance_method": "|sym|\n\nputs \"going to delete method #{sym} on module #{self.to_s}\"\nremove_method(sym)\ninstance_method_list.delete(sym)\n\n\n"
+  },
+  "Object": {
+    "undefine_instance_method": "|sym|\n\nputs \"going to delete method #{sym} on module #{self.to_s}\"\nremove_method(sym)\ninstance_method_list.delete(sym)\n\n\n"
   }
 }
