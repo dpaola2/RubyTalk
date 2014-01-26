@@ -17,13 +17,13 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - support for modules
 - support for instances
 - delete objects & instances
-- GUI (shoes? morphic? X11? qt? Gtk+? web app?)
+- ~~GUI (shoes? morphic? X11? qt? Gtk+? web app?)~~
 - better format for serialization
 - serialize on world open/close, rather than object changes (hooks?)
 - Rails-like web framework
 - multi-user? How would that work?
 - welcome message
-- organize the init.rb code into something sensible (like RubyTalk module)
+- ~~organize the init.rb code into something sensible (like RubyTalk module)~~
 - how to serialize open files and network connections
 - resolve class superclasses upon definition (if we try to define a class with a nonexistant superclass, what happens?)
 - how to handle cascading?
@@ -31,6 +31,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - resumable exceptions?
 - Ruby threads === Smalltalk processes? (not yet)
 - handle dependencies from within RubyTalk (rather than needing to edit the Gemfile and run bundle install)
+- ability to bookmark classes in the system browser
 
 # Ideas for applications / objects
 
@@ -62,4 +63,4 @@ $ ./world.rb
 
 ```
 
-`exit` will quit RubyTalk.
+After you close the GUI, `exit` will quit RubyTalk.
