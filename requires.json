@@ -5,6 +5,7 @@
     "json",
     "hipchat",
     "audite",
-    "tk"
+    "tk",
+    "tkextlib/tile"
   ]
 }
