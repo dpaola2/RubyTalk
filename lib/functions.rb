@@ -99,7 +99,7 @@ def record_class_method_change(class_name, method_name, proc_string)
   end
 end
 
-def record_method_change(class_name, method_name, proc_string)
+def methods_from_disk
   filepath = "methods.json"
   changes = {}
   if File.exists? filepath
@@ -107,17 +107,32 @@ def record_method_change(class_name, method_name, proc_string)
     file = File.open(filepath, "r")
     changes = JSON.parse(file.read)
   end
+  changes
+end
+
+def methods_to_disk(changes)
+  filepath = "methods.json"
+  # write the file
+  File.open(filepath, "w") do |f|
+    f.write(JSON.pretty_generate(changes))
+  end
+end
+
+def record_method_delete(class_name, method_name)
+  changes = methods_from_disk
+  changes[class_name.to_s].delete(method_name.to_s)
+  methods_to_disk(changes)
+end
+
+def record_method_change(class_name, method_name, proc_string)
+  changes = methods_from_disk
   
   # write new values to the hash
   if changes[class_name.to_s].nil?
     changes[class_name.to_s] = {}
   end
   changes[class_name.to_s][method_name] = proc_string
-  
-  # write the file
-  File.open(filepath, "w") do |f|
-    f.write(JSON.pretty_generate(changes))
-  end
+  methods_to_disk(changes)
 end
 
 def load_changes

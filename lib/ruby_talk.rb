@@ -9,6 +9,12 @@ module RubyTalk
         block
       end
 
+      define_method :undefine_instance_method do |name|
+        remove_method(name.to_sym)
+        instance_method_list.delete(name.to_sym)
+        record_method_delete(self.name, name)
+      end
+
       define_method :instance_method_list do
         if @instance_method_list.nil?
           @instance_method_list = {}
