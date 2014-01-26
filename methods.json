@@ -32,8 +32,7 @@
   },
   "Class": {
     "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
-    "render_methods": "instance_method_list.collect {|k,m| \"<h2>#{k}</h2><pre>#{m}</pre>\" }.join",
-    "undefine_instance_method": "|sym|\n\nputs \"going to delete method #{sym} on module #{self.to_s}\"\nremove_method(sym)\ninstance_method_list.delete(sym)\n\n\n"
+    "render_methods": "instance_method_list.collect {|k,m| \"<h2>#{k}</h2><pre>#{m}</pre>\" }.join"
   },
   "MyHipchat": {
     "initialize": "@token = '7810024d94df2eb7bbf653e97d6afe'; @client = HipChat::Client.new(@token); ",
@@ -79,7 +78,6 @@
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Thread List\" }\n\n  @listbox = TkListbox.new(@window) do\n    height 15\n    width 35\n    threads = Thread.list.collect {|t| t.to_s }\n    listvariable TkVariable.new(threads)\n    pack\n  end\n"
   },
   "Bar": {
-    "test": "\"nothing here\"\n"
   },
   "TodoList": {
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Todo List\" }\n  @TkText = TkText.new(@window) do\n    height 15\n    width 35\n    pack('fill' => 'both')\n  end\n"
@@ -88,10 +86,6 @@
     "foobar": "",
     "render": "\"foobaf\"\n"
   },
-  "Module": {
-    "undefine_instance_method": "|sym|\n\nputs \"going to delete method #{sym} on module #{self.to_s}\"\nremove_method(sym)\ninstance_method_list.delete(sym)\n\n\n"
-  },
   "Object": {
-    "undefine_instance_method": "|sym|\n\nputs \"going to delete method #{sym} on module #{self.to_s}\"\nremove_method(sym)\ninstance_method_list.delete(sym)\n\n\n"
   }
 }

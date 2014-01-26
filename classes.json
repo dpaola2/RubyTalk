@@ -10,10 +10,6 @@
       "Object"
     ],
     [
-      "Bar",
-      "Object"
-    ],
-    [
       "RailsApp",
       "Object"
     ],
@@ -83,6 +79,10 @@
     ],
     [
       "TodoList",
+      "Object"
+    ],
+    [
+      "Bar",
       "Object"
     ]
   ]
