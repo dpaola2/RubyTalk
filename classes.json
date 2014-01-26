@@ -76,6 +76,10 @@
     [
       "Editor",
       "Object"
+    ],
+    [
+      "ThreadList",
+      "Object"
     ]
   ]
 }
