@@ -33,6 +33,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - handle dependencies from within RubyTalk (rather than needing to edit the Gemfile and run bundle install)
 - ability to bookmark classes in the system browser
 - pull RubyTalkGUI code into RubyTalk (instead of in gui.rb)
+- use postgres as the object memory (to allow collaboration, and client/server-like architecture) (who needs icloud?)
 
 # Ideas for applications / objects
 
