@@ -92,6 +92,10 @@
     [
       "RubyTalkDock",
       "Object"
+    ],
+    [
+      "ClassMethodList",
+      "Object"
     ]
   ]
 }

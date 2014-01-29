@@ -48,7 +48,7 @@
     "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
   },
   "SystemBrowser": {
-    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    @editor.clear\n    methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(methods)\n    puts methods.inspect\n    @selected_module = @module_list.selected_module\n  }\n)\n\n@method_notebook = Tk::Tile::Notebook.new(@window) do\n  height 25\n  pack('side' => 'left', 'fill' => 'y')\nend\n\ntab1 = TkFrame.new(@method_notebook)\n@instance_method_list = InstanceMethodList.new(tab1)\n\n@instance_method_list.onselect(\n  lambda {\n    method_name = @instance_method_list.selected_method    \n    @selected_method_name = method_name\n    method = @selected_module.instance_method_list[method_name.to_sym]\n    puts method\n    @editor.set_text(method)\n  }\n)\n\n@new_method_name = TkEntry.new(tab1) do\n  text '<method name>'\n  pack('side' => 'top')\nend\n\n@new_method_btn = TkButton.new(tab1) do\n  text \"New Method\"\n  pack('side' => 'top')\nend\n\n@new_method_btn.command do\n  method_name = @new_method_name.get()\n  if method_name == \"\"\n    raise \"Blank Method Name\"\n  end\n  @new_method_name.delete('0', 'end')\n  puts method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, \"\")\nend\n\n@delete_method_btn = TkButton.new(tab1) do\n  text \"Delete Method\"\n  pack('side' => 'top')\nend\n\n@delete_method_btn.command do\n  method_name = @instance_method_list.selected_method\n  mod = @selected_module\n  mod.undefine_instance_method(method_name.to_sym)\nend\n\n\ntab2 = TkFrame.new(@method_notebook)\n@method_notebook.add(tab1, :text => 'Instance Methods')\n@method_notebook.add(tab2, :text => 'Class Methods')\n\n@accept_button = TkButton.new(@window) do\n  text 'Accept'\n  state 'normal'\n  borderwidth 1\n  pack('side' => 'bottom')\nend\n\n@accept_button.command do\n  text = @editor.get_text\n  sel_module = @selected_module\n  method_name = @selected_method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, text)\nend\n\n@editor = Editor.new(@window)\n\n\n\n\n\n\n\n\n\n\n\n",
+    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    inst_methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(inst_methods)\n    @instance_method_list.clear_editor\n\n    cls_methods = @module_list.selected_module.class_method_list.keys\n    @class_method_list.set_methods(cls_methods)\n    @selected_module = @module_list.selected_module\n    @instance_method_list.selected_module = @selected_module\n  }\n)\n\n@method_notebook = Tk::Tile::Notebook.new(@window) do\n  height 25\n  pack('side' => 'left', 'fill' => 'y')\nend\n\ntab1 = TkFrame.new(@method_notebook)\n@instance_method_list = InstanceMethodList.new(tab1)\n\n@new_method_name = TkEntry.new(tab1) do\n  text '<method name>'\n  pack('side' => 'top')\nend\n\n@new_method_btn = TkButton.new(tab1) do\n  text \"New Method\"\n  pack('side' => 'top')\nend\n\n@new_method_btn.command do\n  method_name = @new_method_name.get()\n  if method_name == \"\"\n    raise \"Blank Method Name\"\n  end\n  @new_method_name.delete('0', 'end')\n  puts method_name\n  @selected_module.define_instance_method_from_string(method_name.to_sym, \"\")\nend\n\n@delete_method_btn = TkButton.new(tab1) do\n  text \"Delete Method\"\n  pack('side' => 'top')\nend\n\n@delete_method_btn.command do\n  method_name = @instance_method_list.selected_method\n  mod = @selected_module\n  mod.undefine_instance_method(method_name.to_sym)\nend\n\n\ntab2 = TkFrame.new(@method_notebook)\n@class_method_list = ClassMethodList.new(tab2)\n\n@class_method_list.onselect(\n  lambda {\n    method_name = @class_method_list.selected_method    \n    @selected_method_name = method_name\n    method = @selected_module.class_method_list[method_name.to_sym]\n    @editor.set_text(method)\n  }\n)\n\n@method_notebook.add(tab1, :text => 'Instance Methods')\n@method_notebook.add(tab2, :text => 'Class Methods')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "reselect_module": "\"deprecated\"\n",
     "test_method": "",
     "foobar": ""
@@ -56,11 +56,14 @@
   "RubyTalkGUI": {
   },
   "InstanceMethodList": {
-    "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left', 'fill' => 'both') \n  end\n\n\n\n",
-    "set_methods": "|list| @listbox.listvariable TkVariable.new(list);",
+    "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left', 'fill' => 'both') \n  end\n\nself.onselect(\n  lambda {\n    @editor.clear\n    method = @selected_module.instance_method_list[selected_method.to_sym]\n    @editor.set_text(method)\n  }\n)\n\n  @editor = Editor.new(root)\n\n@accept_button = TkButton.new(root) do\n  text 'Accept'\n  state 'normal'\n  borderwidth 1\n  pack('side' => 'bottom')\nend\n\n@accept_button.command do\n  text = @editor.get_text\n  method_name = selected_method\n  @selected_module.define_instance_method_from_string(method_name.to_sym, text)\nend\n\n\n",
+    "set_methods": "|list| \n\n@listbox.listvariable TkVariable.new(list)\n",
     "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
     "listbox": "@listbox",
-    "selected_method": "@selected_method = @listbox.get(@listbox.curselection)\n"
+    "selected_method": "@selected_method = @listbox.get(@listbox.curselection)\n",
+    "selected_module=": "|mod|\n\n@selected_module = mod\n",
+    "selected_module": "@selected_module\n",
+    "clear_editor": "@editor.clear\n"
   },
   "Workspace": {
     "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'Workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 10\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5', 'fill' => 'both')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n\n",
@@ -68,7 +71,7 @@
     "parent": "@parent\n"
   },
   "Editor": {
-    "initialize": "\n|root|\n\n@editor = TkText.new(root) do\n  width 65\n  height 25\n  undo true\n  pack('fill' => 'both')\nend\n\n\n\n\n",
+    "initialize": "\n|root|\n\n@editor = TkText.new(root) do\n  width 65\n  height 25\n  undo true\n  pack('side' => 'left', 'fill' => 'both')\nend\n\n\n\n\n\n",
     "set_text": "\n|text|\n  @editor.delete('1.0', 'end')\n  @editor.insert('1.0', text)\n",
     "get_text": "\n  @editor.get('1.0', 'end')\n\n",
     "clear": "@editor.delete('1.0', 'end')"
@@ -77,6 +80,7 @@
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Thread List\" }\n\n  @listbox = TkListbox.new(@window) do\n    height 15\n    width 35\n    threads = Thread.list.collect {|t| t.to_s }\n    listvariable TkVariable.new(threads)\n    pack\n  end\n"
   },
   "Bar": {
+    "foo": "\"hello world again\"\n\n"
   },
   "TodoList": {
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Todo List\" }\n  @TkText = TkText.new(@window) do\n    height 15\n    width 35\n    pack('fill' => 'both')\n  end\n"
@@ -95,5 +99,12 @@
     "initialize": "|root|\n\n@root = root\n\n@window = TkToplevel.new(@root) do\n  title \"Dock\"\nend\n\n@new_workspace_btn = TkButton.new(@window) do\n  borderwidth 1\n  state \"normal\"\n  text \"New Workspace\"\n  pack\nend\n\n@new_workspace_btn.command do\n  new_workspace\nend\n\n@new_system_browser_btn = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'System Browser'\n  pack\nend\n\n@new_system_browser_btn.command do\n  new_system_browser\nend\n\n\n",
     "new_workspace": "Workspace.new(@window)\n\n",
     "new_system_browser": "SystemBrowser.new(@window)\n\n"
+  },
+  "ClassMethodList": {
+    "initialize": "|root|\n\n@listbox = TkListbox.new(root) do\n  width 35\n  height 25\n  pack('side' => 'left', 'fill' => 'both')\nend\n\n",
+    "set_methods": "|list| \n\n@listbox.listvariable TkVariable.new(list)\n",
+    "onselect": "|blk|\n\n@listbox.bind('<ListboxSelect>', blk)\n",
+    "listbox": "@listbox\n",
+    "selected_method": "@selected_method = @listbox.get(@listbox.curselection)\n"
   }
 }
