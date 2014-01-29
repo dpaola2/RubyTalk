@@ -4,5 +4,8 @@
   },
   "ModuleList": {
     "render": "all_modules.join('<br>')"
+  },
+  "Bar": {
+    "hello": "\"hello\"\n"
   }
 }
