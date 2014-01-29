@@ -54,7 +54,6 @@
     "foobar": ""
   },
   "RubyTalkGUI": {
-    "new_system_browser": "SystemBrowser.new(@root);"
   },
   "InstanceMethodList": {
     "initialize": "|root| \n  @listbox = TkListbox.new(root) do\n    width 35\n    height 25\n    pack('side' => 'left', 'fill' => 'both') \n  end\n\n\n\n",
@@ -89,8 +88,12 @@
   "Object": {
   },
   "ObjectSerializer": {
-    "initialize": "|obj|\n\n  @output = {\n    :name => obj.name.to_s,\n    :instance_methods => obj.instance_method_list,\n    :superclass_name => obj.superclass.name.to_s,\n    :class_methods => obj.class_method_list\n  }\n\n",
-    "output": "@output\n",
-    "initialize": "|obj|\n\n  @output = {\n    :name => obj.name.to_s,\n    :class_name => obj.class.name.to_s,\n    :instance_methods => obj.instance_method_list,\n    :superclass_name => obj.superclass.name.to_s,\n    :class_methods => obj.class_method_list\n  }\n\n"
+    "initialize": "|obj|\n\n  @output = {\n    :name => obj.name.to_s,\n    :class_name => obj.class.name.to_s,\n    :instance_methods => obj.instance_method_list,\n    :superclass_name => obj.superclass.name.to_s,\n    :class_methods => obj.class_method_list\n  }\n\n",
+    "output": "@output\n"
+  },
+  "RubyTalkDock": {
+    "initialize": "|root|\n\n@root = root\n\n@window = TkToplevel.new(@root) do\n  title \"Dock\"\nend\n\n@new_workspace_btn = TkButton.new(@window) do\n  borderwidth 1\n  state \"normal\"\n  text \"New Workspace\"\n  pack\nend\n\n@new_workspace_btn.command do\n  new_workspace\nend\n\n@new_system_browser_btn = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'System Browser'\n  pack\nend\n\n@new_system_browser_btn.command do\n  new_system_browser\nend\n\n\n",
+    "new_workspace": "Workspace.new(@window)\n\n",
+    "new_system_browser": "SystemBrowser.new(@window)\n\n"
   }
 }

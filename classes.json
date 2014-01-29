@@ -88,6 +88,10 @@
     [
       "ObjectSerializer",
       "Object"
+    ],
+    [
+      "RubyTalkDock",
+      "Object"
     ]
   ]
 }
