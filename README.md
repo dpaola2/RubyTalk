@@ -36,6 +36,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - pull RubyTalkGUI code into RubyTalk (instead of in gui.rb)
 - use postgres as the object memory (to allow collaboration, and client/server-like architecture) (who needs icloud?)
 - bookmarks for classes
+- inspector so that messages can be sent to instances (explorer?)
 
 # Ideas for applications / objects
 
