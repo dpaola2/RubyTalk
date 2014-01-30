@@ -63,7 +63,7 @@
     "clear_editor": "@editor.clear\n"
   },
   "Workspace": {
-    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 10\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5', 'fill' => 'both')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  result = eval(@workspace.get('1.0', 'end'))\n  @workspace.insert('insert', result)\nend\n\n\n\n\n\n\n\n\n\n",
+    "initialize": "|root|\n@parent = root\n@window = TkToplevel.new(root) { title 'workspace' }\n\n@workspace = TkText.new(@window) do\n  width 50\n  height 10\n  borderwidth 1\n  pack('side' => 'top', 'padx' => '5', 'pady' => '5', 'fill' => 'both')\nend\n\n@doit_button = TkButton.new(@window) do\n  text 'Do it'\n  borderwidth 1\n  state 'normal'\n  pack('side' => 'bottom')\nend\n\n@doit_button.command do\n  Thread.new {\n    Thread.current[:name] = \"workspace_eval\"\n    result = eval(@workspace.get('1.0', 'end'))\n    @workspace.insert('insert', result)\n  }\nend\n\n\n\n\n\n\n\n\n\n\n",
     "root": "@parent\n",
     "parent": "@parent\n"
   },
@@ -96,7 +96,7 @@
   },
   "RubyTalkDock": {
     "initialize": "|root|\n\n@root = root\n\n@window = TkToplevel.new(@root) do\n  title \"Dock\"\nend\n\n@new_workspace_btn = TkButton.new(@window) do\n  borderwidth 1\n  state \"normal\"\n  text \"New Workspace\"\n  pack\nend\n\n@new_workspace_btn.command do\n  new_workspace\nend\n\n@new_system_browser_btn = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'System Browser'\n  pack\nend\n\n@new_system_browser_btn.command do\n  new_system_browser\nend\n\n@new_thread_list_button = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'Thread List'\n  pack\nend\n\n@new_thread_list_button.command do\n  new_thread_list\nend\n\n\n",
-    "new_workspace": "Workspace.new(@root)\n\n\n",
+    "new_workspace": "Workspace.new(@root)\n\n\n\n\n",
     "new_system_browser": "SystemBrowser.new(@root)\n\n\n",
     "new_thread_list": "ThreadList.new(@root)\n\n\n"
   },
