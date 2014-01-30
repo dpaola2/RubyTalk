@@ -69,3 +69,11 @@ $ ./world.rb
 ```
 
 After you close the GUI, `exit` will quit RubyTalk.
+
+
+## Links
+
+[Ruby TK Guide](http://www.tutorialspoint.com/ruby/ruby_tk_guide.htm)
+
+[Ruby ObjectSpace heap dumper](http://tmm1.net/ruby21-objspace/)
+
