@@ -74,7 +74,9 @@
     "clear": "@editor.delete('1.0', 'end')"
   },
   "ThreadList": {
-    "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Thread List\" }\n\n  @listbox = TkListbox.new(@window) do\n    height 15\n    width 35\n    threads = Thread.list.collect {|t| t.to_s }\n    listvariable TkVariable.new(threads)\n    pack\n  end\n"
+    "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Thread List\" }\n\n  @listbox = TkListbox.new(@window) do\n    height 15\n    width 35\n    pack\n  end\n  start_timer\n\n\n\n\n",
+    "start_timer": "@thr = Thread.new do\n  Thread.current[:name] = \"ThreadList\"\n  while true do\n    @listbox.listvariable(TkVariable.new(threads))\n    sleep(2)\n  end\nend\n\n",
+    "threads": "    threads = Thread.list.collect do |thr|\n      name = thr[:name]\n      if name.nil?\n        name = \"unnamed\"\n      end\n      name\n    end\n\nthreads\n\n"
   },
   "Bar": {
     "foo": "\"hello, world!\"\n\n"
@@ -93,9 +95,10 @@
     "output": "@output\n"
   },
   "RubyTalkDock": {
-    "initialize": "|root|\n\n@root = root\n\n@window = TkToplevel.new(@root) do\n  title \"Dock\"\nend\n\n@new_workspace_btn = TkButton.new(@window) do\n  borderwidth 1\n  state \"normal\"\n  text \"New Workspace\"\n  pack\nend\n\n@new_workspace_btn.command do\n  new_workspace\nend\n\n@new_system_browser_btn = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'System Browser'\n  pack\nend\n\n@new_system_browser_btn.command do\n  new_system_browser\nend\n\n\n",
-    "new_workspace": "Workspace.new(@window)\n\n",
-    "new_system_browser": "SystemBrowser.new(@window)\n\n"
+    "initialize": "|root|\n\n@root = root\n\n@window = TkToplevel.new(@root) do\n  title \"Dock\"\nend\n\n@new_workspace_btn = TkButton.new(@window) do\n  borderwidth 1\n  state \"normal\"\n  text \"New Workspace\"\n  pack\nend\n\n@new_workspace_btn.command do\n  new_workspace\nend\n\n@new_system_browser_btn = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'System Browser'\n  pack\nend\n\n@new_system_browser_btn.command do\n  new_system_browser\nend\n\n@new_thread_list_button = TkButton.new(@window) do\n  borderwidth 1\n  state 'normal'\n  text 'Thread List'\n  pack\nend\n\n@new_thread_list_button.command do\n  new_thread_list\nend\n\n\n",
+    "new_workspace": "Workspace.new(@root)\n\n\n",
+    "new_system_browser": "SystemBrowser.new(@root)\n\n\n",
+    "new_thread_list": "ThreadList.new(@root)\n\n\n"
   },
   "ClassMethodList": {
     "initialize": "|root|\n\n@listbox = TkListbox.new(root) do\n  width 35\n  height 25\n  pack('side' => 'left', 'fill' => 'both')\nend\n\nself.onselect(\n  lambda {\n    puts \"got here\"\n    @editor.clear\n    method = @selected_module.class_method_list[selected_method.to_sym]\n    @editor.set_text(method)\n  }\n)\n\n@editor = Editor.new(root)\n\n@new_method_name = TkEntry.new(root) do\n  text 'method name'\n  pack('side' => 'top')\nend\n\n@new_method_btn = TkButton.new(root) do\n  text \"New Method\"\n  pack('side' => 'top')\nend\n\n@new_method_btn.command do\n  method_name = @new_method_name.get()\n  if method_name == \"\"\n    raise \"Blank Method Name\"\n  end\n  @new_method_name.delete('0', 'end')\n  selected_module.define_class_method_from_string(method_name.to_sym, \"\")\nend\n\n@delete_method_btn = TkButton.new(root) do\n  text \"Delete Method\"\n  pack('side' => 'top')\nend\n\n@delete_method_btn.command do\n  method_name = selected_method\n  mod = selected_module\n  mod.undefine_class_method(method_name.to_sym)\nend\n\n\n@accept_button = TkButton.new(root) do\n  text 'Accept'\n  state 'normal'\n  borderwidth 1\n  pack('side' => 'bottom')\nend\n\n@accept_button.command do\n  text = @editor.get_text\n  method_name = selected_method\n  @selected_module.define_class_method_from_string(method_name.to_sym, text)\nend\n\n\n\n",

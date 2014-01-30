@@ -8,6 +8,7 @@
     "tk",
     "tkextlib/tile",
     "launchy",
-    "octokit"
+    "octokit",
+    "pg"
   ]
 }
