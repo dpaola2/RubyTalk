@@ -7,6 +7,7 @@
     "audite",
     "tk",
     "tkextlib/tile",
-    "launchy"
+    "launchy",
+    "octokit"
   ]
 }
