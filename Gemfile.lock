@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.5)
     audite (0.3.0)
     columnize (0.3.6)
     daemons (1.1.9)
@@ -17,6 +18,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     json (1.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     multi_xml (0.5.5)
     pg (0.17.1)
     rack (1.5.2)
@@ -39,6 +42,7 @@ DEPENDENCIES
   audite
   debugger
   hipchat
+  launchy
   pg
   sinatra
   thin

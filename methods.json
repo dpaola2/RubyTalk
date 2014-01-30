@@ -48,10 +48,9 @@
     "render": "rows = @data.collect { |d| \"<td>#{d}</td>\"}.join; \"<tr>#{rows}</tr>\""
   },
   "SystemBrowser": {
-    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    inst_methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(inst_methods)\n    @instance_method_list.clear_editor\n\n    cls_methods = @module_list.selected_module.class_method_list.keys\n    @class_method_list.set_methods(cls_methods)\n    @selected_module = @module_list.selected_module\n    @instance_method_list.selected_module = @selected_module\n    @class_method_list.selected_module = @selected_module\n  }\n)\n\n@method_notebook = Tk::Tile::Notebook.new(@window) do\n  height 25\n  pack('side' => 'left', 'fill' => 'y')\nend\n\ntab1 = TkFrame.new(@method_notebook)\n@instance_method_list = InstanceMethodList.new(tab1)\n\ntab2 = TkFrame.new(@method_notebook)\n@class_method_list = ClassMethodList.new(tab2)\n\n@method_notebook.add(tab1, :text => 'Instance Methods')\n@method_notebook.add(tab2, :text => 'Class Methods')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "initialize": "\n|root| \n\n@window = TkToplevel.new(root) do \n  title 'System Browser'\nend\n\n@module_list = RubyTalkGUI::ModuleList.new(@window)\n\n@module_list.onselect(\n  lambda {\n    inst_methods = @module_list.selected_module.instance_method_list.keys\n    @instance_method_list.set_methods(inst_methods)\n    @instance_method_list.clear_editor\n\n    cls_methods = @module_list.selected_module.class_method_list.keys\n    @class_method_list.set_methods(cls_methods)\n    @selected_module = @module_list.selected_module\n    @instance_method_list.selected_module = @selected_module\n    @class_method_list.selected_module = @selected_module\n\n    @module_label.textvariable TkVariable.new(@module_list.selected_module.name)\n\n    @docs_button.command do\n      Launchy.open(\"https://www.google.com/search?q=ruby #{@module_list.selected_module.name} docs\")\n    end\n  }\n)\n\n@status_bar = TkFrame.new(@window) do\n  pack('side' => 'bottom')\nend\n\n@module_label = TkLabel.new(@status_bar) do\n  justify 'left'\n  pack('side' => 'left')\nend\n\n@docs_button = TkButton.new(@status_bar) do\n  text 'View Docs'\n  pack('side' => 'left')\nend\n\n@method_notebook = Tk::Tile::Notebook.new(@window) do\n  height 25\n  pack('side' => 'left', 'fill' => 'y')\nend\n\ntab1 = TkFrame.new(@method_notebook)\n@instance_method_list = InstanceMethodList.new(tab1)\n\ntab2 = TkFrame.new(@method_notebook)\n@class_method_list = ClassMethodList.new(tab2)\n\n@method_notebook.add(tab1, :text => 'Instance Methods')\n@method_notebook.add(tab2, :text => 'Class Methods')\n\n\n\n\n",
     "reselect_module": "\"deprecated\"\n",
-    "test_method": "",
-    "foobar": ""
+    "test_method": ""
   },
   "RubyTalkGUI": {
   },
@@ -80,7 +79,7 @@
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Thread List\" }\n\n  @listbox = TkListbox.new(@window) do\n    height 15\n    width 35\n    threads = Thread.list.collect {|t| t.to_s }\n    listvariable TkVariable.new(threads)\n    pack\n  end\n"
   },
   "Bar": {
-    "foo": "\"hi stoyan\"\n"
+    "foo": "\"hello, world!\"\n\n"
   },
   "TodoList": {
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Todo List\" }\n  @TkText = TkText.new(@window) do\n    height 15\n    width 35\n    pack('fill' => 'both')\n  end\n"

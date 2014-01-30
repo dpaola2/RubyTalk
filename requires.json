@@ -6,6 +6,7 @@
     "hipchat",
     "audite",
     "tk",
-    "tkextlib/tile"
+    "tkextlib/tile",
+    "launchy"
   ]
 }
