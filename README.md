@@ -5,6 +5,8 @@ RubyTalk
 
 RubyTalk's goal is to provide an interactive, visual programming environment, much like Smalltalk or Self. Build your applications by interacting directly with objects in memory, rather than their textual representation on the filesystem.
 
+The larger goal is to think in higher-level abstractions than we currently have.
+
 Status
 ======
 
@@ -44,6 +46,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - hipchat
 - os x menubar applet (workspaces in smalltalk)
 - hubot
+- notifications when someone re-pushes to a pull request
 
 
 How To Install
