@@ -39,6 +39,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - use postgres as the object memory (to allow collaboration, and client/server-like architecture) (who needs icloud?)
 - bookmarks for classes
 - inspector so that messages can be sent to instances (explorer?)
+- local bindings in a workspace
 
 # Ideas for applications / objects
 
