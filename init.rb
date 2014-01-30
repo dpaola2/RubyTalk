@@ -7,6 +7,7 @@ require './lib/gui.rb'
 
 
 def welcome
+  Thread.current[:name] = "Main"
   puts "Bootstrapping environment..."
   RubyTalk.bootstrap
   puts "Loading changes from classes.json and methods.json..."
