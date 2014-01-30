@@ -1,6 +1,6 @@
 {
   "MyWebApp": {
-    "go": "self.get '/' do main_page end; self.get '/class/:name' do class_lookup end; Thread.new { self.run!(:server => 'thin')  }"
+    "go": "self.get '/' do \n  main_page \nend\n\nself.get '/class/:name' do \n  class_lookup \nend \n\nThread.new { \n  Thread.current[:name] = \"MyWebApp\"\n  self.run!(:server => 'thin')\n}\n"
   },
   "ModuleList": {
     "render": "all_modules.join('<br>')"
