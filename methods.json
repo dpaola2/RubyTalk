@@ -23,7 +23,7 @@
   },
   "ModuleList": {
     "render": "modules = all_modules.collect {|mod| mod.to_s.as_list_item}.join; \"<h1>Modules</h1><ul>#{modules}</ul>\"",
-    "initialize": "\n|root| \n\n@frame = TkFrame.new(root) do\n   pack('side' => 'left', 'fill' => 'y')\nend\n\n@module_list = all_classes.collect { |m| m.to_s }.sort {|x, y| x.to_s <=> y.to_s}\n@module_list_var = TkVariable.new(@module_list)\nmodule_list_var = @module_list_var\n\n@search_box = TkEntry.new(@frame) do\n  width 35\n  pack('side' => 'top')\nend\n\n@search_box.bind('KeyPress', lambda { |e|\n  if e.char == \"\\r\"\n    query = @search_box.get\n    puts \"searching for #{query}\"\n    if index_of(query)\n      select(query)\n    end\n  end\n})\n\n@listbox = TkListbox.new(@frame) do \n  listvariable module_list_var\n  width 35\n  height 25\n  selectmode 'single'\n  pack('side' => 'bottom', 'fill' => 'y')\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "initialize": "\n|root| \n\n@frame = TkFrame.new(root) do\n   pack('side' => 'left', 'fill' => 'y')\nend\n\n@module_list = all_classes.collect { |m| m.to_s }.sort {|x, y| x.to_s <=> y.to_s}\n@module_list_var = TkVariable.new(@module_list)\nmodule_list_var = @module_list_var\n\n@search_box = TkEntry.new(@frame) do\n  width 35\n  pack('side' => 'top')\nend\n\n@search_box.bind('KeyPress', lambda { |e|\n  if e.char == \"\\r\"\n    query = @search_box.get\n    if index_of(query)\n      select(query)\n    end\n  end\n})\n\n@listbox = TkListbox.new(@frame) do \n  listvariable module_list_var\n  width 35\n  height 25\n  selectmode 'single'\n  pack('side' => 'bottom', 'fill' => 'y')\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
     "listbox": "@listbox",
     "onselect": "|blk| @listbox.bind('<ListboxSelect>', blk)",
     "selected_module": "@selected_module = Module.const_get(@listbox.get(@listbox.curselection))",
@@ -31,8 +31,7 @@
     "reselect": "puts self.listbox.index(selected_module.to_s)\n",
     "index_of": "|mod_name|\n\n@module_list.index(mod_name)\n\n\n",
     "module_list": "@module_list\n",
-    "select": "|item|\n\nindex = index_of(item.to_s)\n@listbox.yview(index)\n@listbox.selection_clear(0, 'end')\n@listbox.selection_set(index)\n@listbox.event_generate('<ListboxSelect>')\n\n\n\n\n\n\n\n\n\n\n\n\n",
-    "initialize": "\n|root| \n\n@frame = TkFrame.new(root) do\n   pack('side' => 'left', 'fill' => 'y')\nend\n\n@module_list = all_classes.collect { |m| m.to_s }.sort {|x, y| x.to_s <=> y.to_s}\n@module_list_var = TkVariable.new(@module_list)\nmodule_list_var = @module_list_var\n\n@search_box = TkEntry.new(@frame) do\n  width 35\n  pack('side' => 'top')\nend\n\n@search_box.bind('KeyPress', lambda { |e|\n  if e.char == \"\\r\"\n    query = @search_box.get\n    if index_of(query)\n      select(query)\n    end\n  end\n})\n\n@listbox = TkListbox.new(@frame) do \n  listvariable module_list_var\n  width 35\n  height 25\n  selectmode 'single'\n  pack('side' => 'bottom', 'fill' => 'y')\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    "select": "|item|\n\nindex = index_of(item.to_s)\n@listbox.yview(index)\n@listbox.selection_clear(0, 'end')\n@listbox.selection_set(index)\n@listbox.event_generate('<ListboxSelect>')\n\n\n\n\n\n\n\n\n\n\n\n\n"
   },
   "Class": {
     "render": "\"<h1>#{self.name}</h1>#{self.render_methods}\"",
