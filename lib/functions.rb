@@ -82,18 +82,32 @@ def record_class_delete(klass)
   classes_to_disk(classes)
 end
 
-def record_class_method_change(class_name, method_name, proc_string)
+def class_methods_from_disk
   filepath = "class_methods.json"
   changes = {}
   if File.exists? filepath
     changes = JSON.parse(File.open(filepath, "r").read())
   end
+  changes
+end
 
+def record_class_method_change(class_name, method_name, proc_string)
+  changes = class_methods_from_disk
   if changes[class_name.to_s].nil?
     changes[class_name.to_s] = {}
   end
   changes[class_name.to_s][method_name] = proc_string
+  class_methods_to_disk(changes)
+end
 
+def record_class_method_delete(class_name, method_name)
+  changes = class_methods_from_disk
+  changes[class_name.to_s].delete(method_name.to_s)
+  class_methods_to_disk(changes)
+end
+
+def class_methods_to_disk(changes)
+  filepath = "class_methods.json"
   File.open(filepath, "w") do |f|
     f.write(JSON.pretty_generate(changes))
   end

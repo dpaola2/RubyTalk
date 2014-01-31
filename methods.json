@@ -84,7 +84,6 @@
     "threads": "    threads = Thread.list.collect do |thr|\n      name = thr[:name]\n      if name.nil?\n        name = \"unnamed\"\n      end\n      name\n    end\n\nthreads\n\n"
   },
   "Bar": {
-    "foo": "\"hello, world!\"\n\n"
   },
   "TodoList": {
     "initialize": "|root|\n\n  @window = TkToplevel.new(root) { title \"Todo List\" }\n  @TkText = TkText.new(@window) do\n    height 15\n    width 35\n    pack('fill' => 'both')\n  end\n"

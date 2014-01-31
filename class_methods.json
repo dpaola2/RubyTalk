@@ -7,7 +7,6 @@
     "open_with_selection": ""
   },
   "Bar": {
-    "hello": "\"hello\"\n"
   },
   "SystemBrowser": {
     "open_with_selection": "|root, name|\n\nSystemBrowser.new(root).select_module(name)\n\n\n\n\n"
