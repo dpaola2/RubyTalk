@@ -18,7 +18,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - ~~support for methods~~
 - support for modules
 - support for instances
-- search (for module/class names, or things that appear within code)
+- ~~search (for module/class names, or things that appear within code)~~
 - delete objects & instances
 - ~~GUI (shoes? morphic? X11? qt? Gtk+? web app?)~~
 - better format for serialization
@@ -35,7 +35,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - Ruby threads === Smalltalk processes? (not yet)
 - handle dependencies from within RubyTalk (rather than needing to edit the Gemfile and run bundle install)
 - ability to bookmark classes in the system browser
-- pull RubyTalkGUI code into RubyTalk (instead of in gui.rb)
+- ~~pull RubyTalkGUI code into RubyTalk (instead of in gui.rb)~~
 - use postgres as the object memory (to allow collaboration, and client/server-like architecture) (who needs icloud?)
 - bookmarks for classes
 - inspector so that messages can be sent to instances (explorer?)
