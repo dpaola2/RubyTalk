@@ -10,5 +10,14 @@
   },
   "SystemBrowser": {
     "open_with_selection": "|root, name|\n\nSystemBrowser.new(root).select_module(name)\n\n\n\n\n"
+  },
+  "": {
+    "subclass": "\n  return PersistentClass.new(self)\n"
+  },
+  "PersistentClass": {
+    "create": "|superklass|\n\nklass = PersistentClass.new(superklass).klass\nputs self.instances\nself.instances << klass\nreturn klass\n\n\n",
+    "instances": "if @@instances.nil?\n  @@instances = []\nend\n@@instances\n\n\n",
+    "init_instances": "@@instances = []\nputs \"success\"\n",
+    "create": "|superklass|\n\nklass = PersistentClass.new(superklass).klass\nself.instances << klass\nreturn klass\n\n\n\n"
   }
 }

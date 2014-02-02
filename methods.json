@@ -118,5 +118,10 @@
     "initialize": "|username, password|\n\n@client = Octokit::Client.new(:login => username, :password => password)\n\n",
     "pull_requests": "|owner, repo|\n\n@client.pull_requests(:state => \"open\", :owner => owner, :repo => repo).count\n\n",
     "pull_request": "|repo, number|\n\nresp = @client.pull_commits(repo, number).collect {|commit| commit.sha}.to_a\n"
+  },
+  "PersistentClass": {
+    "initialize": "|*args|\n\nklass = Class.new(*args)\nklass.define_class_method_from_string(:subclass, \"\n  return PersistentClass.create(self)\n\")\n\n@klass = klass\n\n\n\n\n",
+    "klass": "@klass\n",
+    "initialize": "|*args|\n\nklass = Class.new(*args)\nklass.define_class_method_from_string(:subclass, \"\n  return PersistentClass.create(self)\n\")\n\n@klass = klass\n\n\n\n\n"
   }
 }
