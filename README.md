@@ -77,6 +77,8 @@ After you close the GUI, `exit` will quit RubyTalk.
 
 ## Links
 
+[Eigenclasses demystified](http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html)
+
 [Ruby TK Guide](http://www.tutorialspoint.com/ruby/ruby_tk_guide.htm)
 
 [Ruby ObjectSpace heap dumper](http://tmm1.net/ruby21-objspace/)
