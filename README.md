@@ -40,6 +40,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 - bookmarks for classes
 - inspector so that messages can be sent to instances (explorer?)
 - local bindings in a workspace
+- exception handling from threads
 
 # Ideas for applications / objects
 
