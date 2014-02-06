@@ -1,4 +1,12 @@
 module RubyTalk
+  def self.set_global_state(global_state)
+    @@global_state = global_state
+  end
+
+  def self.global_state
+    @@global_state
+  end
+  
   def self.bootstrap
     Class.class_eval do
       define_method :define_instance_method_from_string do |name, proc_string|

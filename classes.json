@@ -104,6 +104,10 @@
     [
       "PersistentClass",
       "Object"
+    ],
+    [
+      "RubyTalkDatabase",
+      "Object"
     ]
   ]
 }

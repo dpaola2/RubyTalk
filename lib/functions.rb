@@ -150,9 +150,12 @@ def record_method_change(class_name, method_name, proc_string)
 end
 
 def load_changes
+  global_state = {}
+  
   filepath = 'requires.json'
   if File.exists? filepath
     requires = JSON.parse(File.open(filepath, "r").read())['requires']
+    global_state['requires'] = requires
     requires.each do |name|
       puts "require '#{name}'"
       require name
@@ -164,6 +167,7 @@ def load_changes
   filepath = "classes.json"
   if File.exists? filepath
     classes = JSON.parse(File.open(filepath, "r").read())['classes']
+    global_state['classes'] = classes
     classes.each do |name, superclass|
       puts "Creating class: #{name} with superclass #{superclass}"
       if superclass.nil?
@@ -181,6 +185,7 @@ def load_changes
   filepath = "class_methods.json"
   if File.exists? filepath
     changes = JSON.parse(File.open(filepath, "r").read())
+    global_state['class_methods'] = changes
     classes = changes.keys
     classes.each do |class_name|
       methods = changes[class_name].keys
@@ -197,6 +202,7 @@ def load_changes
   filepath = "methods.json"
   if File.exists? filepath
     changes = JSON.parse(File.open("methods.json", "r").read())
+    global_state['methods'] = changes
     classes = changes.keys
     classes.each do |class_name|
       methods = changes[class_name].keys
@@ -209,6 +215,7 @@ def load_changes
   else
     puts "No methods.json found"
   end
+  global_state
 end
 
 def class_exists?(class_name)
