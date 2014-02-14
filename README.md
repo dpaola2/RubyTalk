@@ -7,6 +7,10 @@ RubyTalk's goal is to provide an interactive, visual programming environment, mu
 
 The larger goal is to think in higher-level abstractions than we currently have.
 
+While a better mechanism for interacting with both definitions and instances is desirable, when it comes to sharing and saving, we're concerned (in the short term) only with sharing and saving definitions. We still want an environment with both, but saving and sharing instances of objects is a much hairier problem, however awesome it could be to have them.
+
+The visualizations we use will constrain how we think about our objects and programs. Therefore we must choose carefully!
+
 Status
 ======
 
