@@ -16,33 +16,34 @@ Status
 
 Please note this project is PRE ALPHA. Not ready for even personal use!
 
+# Roadmap
+
+1. Inspector
+2. Persistent Data
+  - ability to store data in postgres and retrieve it
+3. Web Framework
+  - run servers in background threads
+  - views render using HAML
+  - pull in activerecord for ORM support
+  - how to map routes onto functionality
+    - controllers?
+    - RESTful?
+4. Object memory modifications
+  - support for instances and modules
+  - seralization overhaul
+    - on open/close
+    - store in postgres or somewhere sensible
+    - open files, network connections
+  - resolving dependencies and superclasses
+  - multiple users
+  - transactions
+5. Debugging modifications
+  - resumable exceptions
+6. Process Handling (threads)
+7. Better GUI toolkit
+
 # TODO
 
-- ~~support for classes~~
-- ~~support for methods~~
-- support for modules
-- support for instances
-- ~~search (for module/class names, or things that appear within code)~~
-- delete objects & instances
-- ~~GUI (shoes? morphic? X11? qt? Gtk+? web app?)~~
-- better format for serialization
-- serialize on world open/close, rather than object changes (hooks?)
-- Rails-like web framework
-- multi-user? How would that work?
-- welcome message
-- ~~organize the init.rb code into something sensible (like RubyTalk module)~~
-- how to serialize open files and network connections
-- resolve class superclasses upon definition (if we try to define a class with a nonexistant superclass, what happens?)
-- how to handle cascading?
-- make `Object` class receive the message `subclass` instead of using `create_class`
-- resumable exceptions?
-- Ruby threads === Smalltalk processes? (not yet)
-- handle dependencies from within RubyTalk (rather than needing to edit the Gemfile and run bundle install)
-- ability to bookmark classes in the system browser
-- ~~pull RubyTalkGUI code into RubyTalk (instead of in gui.rb)~~
-- use postgres as the object memory (to allow collaboration, and client/server-like architecture) (who needs icloud?)
-- bookmarks for classes
-- inspector so that messages can be sent to instances (explorer?)
 - local bindings in a workspace
 - generate a docset for Dash (using [this guide](http://kapeli.com/docsets))
 - exception handling from threads
