@@ -19,6 +19,9 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 # Roadmap
 
 1. Inspector
+2. Workspace improvements
+  - print vs do
+  - local bindings for lifetime of workspace
 2. Persistent Data
   - ability to store data in postgres and retrieve it
 3. Web Framework
