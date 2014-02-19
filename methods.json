@@ -122,5 +122,11 @@
   "PersistentClass": {
     "initialize": "|*args|\n\nklass = Class.new(*args)\nklass.define_class_method_from_string(:subclass, \"\n  return PersistentClass.create(self)\n\")\n\n@klass = klass\n\n\n\n\n",
     "klass": "@klass\n"
+  },
+  "Inspector": {
+    "initialize": "|root, victim|\n\n@parent = root\n@victim = victim\n@window = TkToplevel.new(root) { title 'Inspector' }\nlabel_val = TkVariable.new(@victim.to_s)\n\nTkLabel.new(@window) do\n  textvariable label_val\n  borderwidth 5\n  pack('side' => 'top')\nend\n\ninstance_var_label = TkVariable.new(\"Instance Variables\")\nTkLabel.new(@window) do\n  textvariable instance_var_label\n  pack('side' => 'top')\nend\n\ninst_vars = TkVariable.new(@victim.instance_variables)\n@inst_var_list = TkListbox.new(@window) do\n  width 25\n  height 25\n  listvariable inst_vars\n  setgrid 1\n  pack('side' => 'top')\nend\n\nblk = lambda {\n  var_name = @inst_var_list.get(@inst_var_list.curselection)\n  var_val = @victim.instance_variable_get(var_name).to_s\n  @instance_variable_value_label['textvariable'] = TkVariable.new(var_val)\n}\n@inst_var_list.bind('<ListboxSelect>', blk)\n\n@instance_variable_value_label = TkLabel.new(@window) do\n  textvariable\n  pack('side' => 'top')\nend\n\n",
+    "victim": "@victim\n",
+    "parent": "@parent\n\n",
+    "initialize": "|root, victim|\n\n@parent = root\n@victim = victim\n@window = TkToplevel.new(root) { title 'Inspector' }\nlabel_val = TkVariable.new(@victim.to_s)\n\nTkLabel.new(@window) do\n  textvariable label_val\n  borderwidth 5\n  pack('side' => 'top')\nend\n\ninstance_var_label = TkVariable.new(\"Instance Variables\")\nTkLabel.new(@window) do\n  textvariable instance_var_label\n  pack('side' => 'top')\nend\n\ninst_vars = TkVariable.new(@victim.instance_variables)\n@inst_var_list = TkListbox.new(@window) do\n  width 25\n  height 25\n  listvariable inst_vars\n  setgrid 1\n  pack('side' => 'top')\nend\n\nblk = lambda {\n  var_name = @inst_var_list.get(@inst_var_list.curselection)\n  var_val = @victim.instance_variable_get(var_name).inspect\n  @instance_variable_value_label['textvariable'] = TkVariable.new(var_val)\n}\n@inst_var_list.bind('<ListboxSelect>', blk)\n\n@instance_variable_value_label = TkLabel.new(@window) do\n  textvariable\n  pack('side' => 'top')\nend\n\n"
   }
 }
