@@ -8,3 +8,5 @@ gem 'hipchat'
 gem 'audite'
 gem 'launchy'
 gem 'octokit', '~> 2.0'
+gem 'terminal-notifier'
+

@@ -9,6 +9,7 @@
     "tkextlib/tile",
     "launchy",
     "octokit",
-    "pg"
+    "pg",
+    "terminal-notifier"
   ]
 }
