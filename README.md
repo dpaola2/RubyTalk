@@ -56,6 +56,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 # Ideas for applications / objects
 
 - jarvis
+- craigslist notifier (upon new search results)
 - hipchat
 - os x menubar applet (workspaces in smalltalk)
 - hubot
