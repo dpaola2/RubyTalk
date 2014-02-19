@@ -22,16 +22,17 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 2. Workspace improvements
   - print vs do
   - local bindings for lifetime of workspace
-2. Persistent Data
+3. Observer pattern in GUI
+4. Persistent Data
   - ability to store data in postgres and retrieve it
-3. Web Framework
+5. Web Framework
   - run servers in background threads
   - views render using HAML
   - pull in activerecord for ORM support
   - how to map routes onto functionality
     - controllers?
     - RESTful?
-4. Object memory modifications
+6. Object memory modifications
   - support for instances and modules
   - seralization overhaul
     - on open/close
@@ -40,11 +41,11 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
   - resolving dependencies and superclasses
   - multiple users
   - transactions
-5. Debugging modifications
+7. Debugging modifications
   - resumable exceptions
   - exceptions in other threads
-6. Process Handling (threads)
-7. Better GUI toolkit
+8. Process Handling (threads)
+9. Better GUI toolkit
 
 # TODO
 
