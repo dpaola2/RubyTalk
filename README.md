@@ -39,6 +39,7 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
   - transactions
 5. Debugging modifications
   - resumable exceptions
+  - exceptions in other threads
 6. Process Handling (threads)
 7. Better GUI toolkit
 
