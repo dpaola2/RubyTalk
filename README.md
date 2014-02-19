@@ -47,12 +47,6 @@ Please note this project is PRE ALPHA. Not ready for even personal use!
 8. Process Handling (threads)
 9. Better GUI toolkit
 
-# TODO
-
-- local bindings in a workspace
-- generate a docset for Dash (using [this guide](http://kapeli.com/docsets))
-- exception handling from threads
-
 # Ideas for applications / objects
 
 - jarvis
