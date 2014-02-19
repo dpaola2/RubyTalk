@@ -93,6 +93,7 @@
     "render": "\"foobaf\"\n"
   },
   "Object": {
+    "inspector": "Inspector.new(self.parent, self)\n"
   },
   "ObjectSerializer": {
     "initialize": "|obj|\n\n  @output = {\n    :name => obj.name.to_s,\n    :class_name => obj.class.name.to_s,\n    :instance_methods => obj.instance_method_list,\n    :superclass_name => obj.superclass.name.to_s,\n    :class_methods => obj.class_method_list\n  }\n\n",
