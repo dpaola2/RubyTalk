@@ -112,6 +112,10 @@
     [
       "Inspector",
       "Object"
+    ],
+    [
+      "CraigslistNotifier",
+      "Object"
     ]
   ]
 }

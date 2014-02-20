@@ -4,6 +4,8 @@ GEM
     addressable (2.3.5)
     audite (0.3.0)
     columnize (0.3.6)
+    craigslist (0.1.1)
+      nokogiri (~> 1.6.0)
     daemons (1.1.9)
     debugger (1.6.5)
       columnize (>= 0.3.1)
@@ -22,8 +24,11 @@ GEM
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
+    mini_portile (0.5.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     octokit (2.7.1)
       sawyer (~> 0.5.2)
     pg (0.17.1)
@@ -49,6 +54,7 @@ PLATFORMS
 
 DEPENDENCIES
   audite
+  craigslist
   debugger
   hipchat
   launchy

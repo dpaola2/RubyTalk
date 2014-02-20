@@ -10,6 +10,7 @@
     "launchy",
     "octokit",
     "pg",
-    "terminal-notifier"
+    "terminal-notifier",
+    "craigslist"
   ]
 }
