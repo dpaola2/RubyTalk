@@ -131,5 +131,10 @@
   },
   "CraigslistNotifier": {
     "initialize": "\nThread.new {\n  5.times do\n    # collect and curate results Craigslist.retrieve()\n    TerminalNotifier.notify(\"I found more results!\")\n    sleep(1)\n  end\n}\n\n"
+  },
+  "RubyTalkDatabase": {
+    "initialize": "|root|\n\n@parent = root\n@window = TkToplevel.new(root) { title 'Database' }\n\n@db = Sequel.connect(\"postgres://localhost/rubytalk\")\n\n\n@close_btn = TkButton.new(@window) do\n  text \"Close\"\n  pack('side' => 'bottom')\nend\n\n@close_btn.command do \n  @db.disconnect\n  @window.destroy\nend\n",
+    "db": "@db\n",
+    "parent": "@parent\n"
   }
 }

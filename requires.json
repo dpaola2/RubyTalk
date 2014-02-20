@@ -11,6 +11,7 @@
     "octokit",
     "pg",
     "terminal-notifier",
-    "craigslist"
+    "craigslist",
+    "sequel"
   ]
 }
