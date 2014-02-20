@@ -38,6 +38,7 @@ GEM
     sawyer (0.5.3)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
+    sequel (4.7.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -60,6 +61,7 @@ DEPENDENCIES
   launchy
   octokit (~> 2.0)
   pg
+  sequel
   sinatra
   terminal-notifier
   thin
